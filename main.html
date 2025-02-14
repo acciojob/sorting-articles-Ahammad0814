@@ -7,8 +7,43 @@
 </head>
 
 <body>
+	 <ul id="band"></ul>
 	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+<script type="text/javascript" src="./script.js">
+		const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+
+        // Words to ignore when sorting
+        const ignoreWords = ['a', 'an', 'the'];
+
+        // Function to normalize and sort the bands
+        const sortBands = (bands) => {
+            return bands.sort((a, b) => {
+                // Function to remove 'a', 'an', or 'the' from the start of the string
+                const normalize = (str) => {
+                    const lowerStr = str.toLowerCase();
+                    for (let word of ignoreWords) {
+                        if (lowerStr.startsWith(word + ' ')) {
+                            return str.slice(word.length + 1); // Remove the word and the following space
+                        }
+                    }
+                    return str;  // Return the original string if no word is found
+                };
+
+                // Compare the normalized band names
+                return normalize(a).localeCompare(normalize(b));
+            });
+        };
+
+        // Get the sorted list of bands
+        const sortedBands = sortBands(bands);
+
+        // Display the sorted bands in the unordered list
+        const bandList = document.getElementById('band');
+        sortedBands.forEach(band => {
+            const listItem = document.createElement('li');
+            listItem.textContent = band;
+            bandList.appendChild(listItem);
+        });
 </script>
 
 </body>
